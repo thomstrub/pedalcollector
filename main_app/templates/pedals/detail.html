@@ -3,21 +3,64 @@
 
 <h1>Pedal Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ pedal.name }}</span>
-    <p>Breed: {{ pedal.brand }}</p>
-    <p>Description: {{ pedal.description }}</p>
-    {% if pedal.age > 0 %}
-      <p>Age: {{ pedal.age }}</p>
-    {% else %}
-      <p>Age: New</p>
-    {% endif %}
+<div class="row">
+  <div class="col s3"> <!------Pedal----->
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ pedal.name }}</span>
+        <p>Breed: {{ pedal.brand }}</p>
+        <p>Description: {{ pedal.description }}</p>
+        {% if pedal.age > 0 %}
+          <p>Age: {{ pedal.age }}</p>
+        {% else %}
+          <p>Age: New</p>
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a href="{% url 'pedals_update' pedal.id %}">Edit</a>
+        <a href="{% url 'pedals_delete' pedal.id %}">Delete</a>
+      </div>
+    </div>
   </div>
-  <div class="card-action">
-    <a href="{% url 'pedals_update' pedal.id %}">Edit</a>
-    <a href="{% url 'pedals_delete' pedal.id %}">Delete</a>
+  <div class="col s9"><!----amp and guitar---->
+    <div class="row">
+      <div>
+        <!-- new code below -->
+        <form method="post">
+          {% csrf_token %}
+          {{ session_form.as_p }}
+          <input type="submit" class="btn" value="Add Session">
+        </form>
+        <!-- new code above -->
+        <table class="striped">
+    </div>
+    
+
+  </div>
+  
+</div><!---row---->
+<div class="row">
+  <div class="col s-12">
+    <div class="row">
+      <table class="striped">
+        <thead>
+          <tr><th>Date</th><th>Guitar</th><th>Amp</th><th>Session Notes:</th></tr>
+        </thead>
+        <tbody>
+          {% for session in pedal.session_set.all %}
+            <tr>
+              <td>{{session.date}}</td>
+              <td>{{session.get_guitar_display}}</td>
+              <td>{{session.get_amp_display}}</td>
+              <td>{{session.notes}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
+
 
 {% endblock %}

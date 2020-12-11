@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Pedal
+from .forms import SessionForm
 
 # Create your views here.
 
@@ -30,5 +31,8 @@ def pedals_index(request):
 
 def pedals_detail(request, pedal_id):
     pedal = Pedal.objects.get(id=pedal_id)
-    return render(request, 'pedals/detail.html', { 'pedal': pedal})
+    session_form = SessionForm()
+    return render(request, 'pedals/detail.html', { 
+        'pedal': pedal, 'session_form': session_form
+        })
 

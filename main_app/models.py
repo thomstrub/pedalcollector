@@ -29,7 +29,7 @@ class Pedal(models.Model):
         return reverse('detail', kwargs={'pedal_id': self.id})
 
 class Session(models.Model):
-    date = models.DateField()
+    date = models.DateField('session date')
     guitar = models.CharField(
         max_length=1,
         choices=GUITARS,

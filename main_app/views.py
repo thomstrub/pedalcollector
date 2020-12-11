@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Pedal
 from .forms import SessionForm
@@ -35,4 +35,19 @@ def pedals_detail(request, pedal_id):
     return render(request, 'pedals/detail.html', { 
         'pedal': pedal, 'session_form': session_form
         })
+
+def add_session(request, pedal_id):
+    # create ModelForm instance using the data in request.POST
+    form = SessionForm(request.POST)
+    
+    #validate the form
+    if form.is_valid():
+        # don't save the form to the db until it
+        # has the cat_id assigned to it
+        new_session = form.save(commit=False)
+        print(new_session.__dict__, "<----------new session ---------======")
+        print(pedal_id, "pedal_id<--------------------=======")
+        new_session.pedal_id = pedal_id
+        new_session.save()
+    return redirect('detail', pedal_id=pedal_id)
 

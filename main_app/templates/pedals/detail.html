@@ -14,6 +14,10 @@
       <p>Age: New</p>
     {% endif %}
   </div>
+  <div class="card-action">
+    <a href="{% url 'pedals_update' pedal.id %}">Edit</a>
+    <a href="{% url 'pedals_delete' pedal.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}

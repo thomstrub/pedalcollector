@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Pedal(models.Model):
@@ -8,3 +9,7 @@ class Pedal(models.Model):
     age = models.IntegerField()
     def __str__(self):
         return self.name
+
+    # add absolute url instead of creating a success url in PedalClass view 
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'pedal_id': self.id})

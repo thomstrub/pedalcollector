@@ -26,19 +26,19 @@ class Pedal(models.Model):
 
     # add absolute url instead of creating a success url in PedalClass view 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'pedal_id': self.id})
+        return reverse('detail', kwargs={'pk': self.id})
 
 class Board(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
-    pedals = models.ManyToManyField(Pedal)
+    pedals = models.ManyToManyField(Pedal, blank=True)
     age = models.IntegerField()
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('boards_detail', kwargs={'pk': self.id})
+        return reverse('detail', kwargs={'board_id': self.id})
 
     
 

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Your Pedal Boards</h1>
+
+{% for board in boards %}
+  <div class="card">
+    <a href="{% url 'detail' board.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ board.name }}</span>
+      <p>Description: {{ board.description }}</p>
+      {% if board.age > 0 %}
+        <p>Age: {{ board.age }}</p>
+      {% else %}
+        <p>Age: New</p>
+      {% endif %}
+    </div>
+    </a>
+  </div>
+{% endfor %}
+
+{% endblock %}

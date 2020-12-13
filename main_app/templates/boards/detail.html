@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Pedal Details</h1>
+<h1>Board Details</h1>
 
 <div class="row">
-  <div class="col s3"> <!------Pedal----->
+  <div class="col s3"> <!------board----->
     <div class="card">
       <div class="card-content">
-        <span class="card-title">{{ pedal.name }}</span>
-        <p>Breed: {{ pedal.brand }}</p>
-        <p>Description: {{ pedal.description }}</p>
-        {% if pedal.age > 0 %}
-          <p>Age: {{ pedal.age }}</p>
+        <span class="card-title">{{ board.name }}</span>
+        
+        <p>Description: {{ board.description }}</p>
+        {% if board.age > 0 %}
+          <p>Age: {{ board.age }}</p>
         {% else %}
           <p>Age: New</p>
         {% endif %}
       </div>
       <div class="card-action">
-        <a href="{% url 'pedals_update' pedal.id %}">Edit</a>
-        <a href="{% url 'pedals_delete' pedal.id %}">Delete</a>
+        <a href="{% url 'boards_update' board.id %}">Edit</a>
+        <a href="{% url 'boards_delete' board.id %}">Delete</a>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
     <div class="row">
       <div>
         <!-- new code below -->
-        <form action="{% url 'add_session' pedal.id %}" method="post">
+        <form action="{% url 'add_session' board.id %}" method="post">
           {% csrf_token %}
           {{ session_form.as_p }}
           <input type="submit" class="btn" value="Add Session">
@@ -47,7 +47,7 @@
           <tr><th>Date</th><th>Guitar</th><th>Amp</th><th>Session Notes:</th></tr>
         </thead>
         <tbody>
-          {% for session in pedal.session_set.all %}
+          {% for session in board.session_set.all %}
             <tr>
               <td>{{session.date}}</td>
               <td>{{session.get_guitar_display}}</td>

@@ -20,13 +20,27 @@ class Pedal(models.Model):
     name = models.CharField(max_length=100)
     brand = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
-    age = models.IntegerField()
+    color = models.CharField(max_length=20)
     def __str__(self):
         return self.name
 
     # add absolute url instead of creating a success url in PedalClass view 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pedal_id': self.id})
+
+class Board(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    pedals = models.ManyToManyField(Pedal)
+    age = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('boards_detail', kwargs={'pk': self.id})
+
+    
 
 class Session(models.Model):
     date = models.DateField('session date')
@@ -42,7 +56,7 @@ class Session(models.Model):
     )
     notes = models.TextField(max_length=250)
 
-    pedal = models.ForeignKey(Pedal, on_delete=models.CASCADE)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.get_guitar_display()} on {self.get_amp_display()} on {self.date}"

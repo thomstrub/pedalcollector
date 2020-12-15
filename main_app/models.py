@@ -26,7 +26,7 @@ class Pedal(models.Model):
 
     # add absolute url instead of creating a success url in PedalClass view 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'pk': self.id})
+        return reverse('pedals_detail', kwargs={'pk': self.id})
 
 class Board(models.Model):
     name = models.CharField(max_length=100)
